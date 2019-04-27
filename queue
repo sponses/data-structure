@@ -36,7 +36,7 @@ class Queue{
   
   //队列是否为空
   isEmpty(){
-    return !!this.queue.length;
+    return !this.queue.length;
   }
   
   //输出队列
@@ -54,11 +54,27 @@ class Queue{
     
     //队列是否为空
     isEmpty(){
-      return !!this.queue.length;
+      return !this.queue.length;
     }
+    
     //入栈
     enqueue(element,priority){
       let queueElement = {element,priority};
       if(this.isEmpty){
-        this.priorityQueue.push(
+        this.priorityQueue.push(ququeElment)
+      }else{
+        const index = this.priorityQueue.findIndex((item)=>queueElement.priority<item.priority);
+        if(index > -1){
+          this.priorityQueue.splice(index,0,queueElement);
+        }else{
+          this.priorityQueue.push(queueElement);
+        }
+      }
+      
+      //出栈
+      dequeue(){
+        this.priorityQueue.shift();
+      }
+      
+}
   
