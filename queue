@@ -1,3 +1,4 @@
+//普通队列
 class Queue{
   constructor(){
     this.queue = [];
@@ -44,3 +45,20 @@ class Queue{
   }
   
 }
+
+ //优先队列
+  class priorityQueue(){
+    constructor(){
+      this.priorityQueue = [];
+    }
+    
+    //队列是否为空
+    isEmpty(){
+      return !!this.queue.length;
+    }
+    //入栈
+    enqueue(element,priority){
+      let queueElement = {element,priority};
+      if(this.isEmpty){
+        this.priorityQueue.push(
+  
