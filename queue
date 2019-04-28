@@ -78,3 +78,21 @@ class Queue{
       
 }
   
+//循环队列
+class LoopQueue extends Queue{
+  constructor(queue){
+    super(queue);
+  }
+  
+  //获取循环队列中的索引
+  getIndex(index){
+    const len = this.queue.getSize();
+    return index > len? (index % len) : index;
+  }
+  
+  //查找
+  find(index){
+    return !this.queue.isEmpty()?this.queue[this.getIndex(index)]:null;
+  }
+  
+}
