@@ -1,0 +1,34 @@
+class Set {
+  constructor(){
+    this.items = {}
+  }
+  
+  has(value){
+    return this.items.hasOwnProperty(value)
+  }
+  
+  add(value){
+    if(!this.items.has(value)){
+      this.items[value] = value;
+      return true;
+    }
+    return false;
+  }
+  
+  remove(value){
+    if(this.items.has(value)){
+      delete this.item.value;
+      return true;
+    }
+    return false;
+  }
+  
+  get size(){
+    return Object.keys(this.items).length;
+  }
+  
+  get value(){
+    return Object.keys(this.items);
+  }
+  
+}
