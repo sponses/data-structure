@@ -33,4 +33,39 @@ class BinarySearchTree{
         insertNode(this.root,newNode);
        }
    }
+   
+   //中序遍历
+   inOrderTraverse(callback){
+    const inOrderTraverseNode = (node,callback)=>{
+      if(!node){
+        inOrderTraverseNode(node.left,callback)
+        callback(node.key)
+        inOrderTraverseNode(node.right,callback)
+      }
+    }
+    inOrderTraverseNode(this.root,callback)
+  }
+  
+  //先序遍历
+  preOrderTraverse(callback){
+    const preOrderTraverseNode = (node,callback)=>{
+      if(!node){
+        callback(node.key)
+        preOrderTraverseNode(node.left,callback)
+        preOrderTraverseNode(node.right,callback)
+      }
+   }
+   preOrderTraverseNode(this.root,callback)
+ }
+ 
+ //后序遍历
+ portOrderTraverse(callback){
+  const portOrderTraverseNode = (node,callback) =>{
+    if(!node){
+      portOrderTraverseNode(node.left,callback)
+      portOrderTraverseNode(node.right,callback)
+      callback(node.key)
+    }
+  }
+  this.portOrderTraverseNode(this.root,callback)
 }
