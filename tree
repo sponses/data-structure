@@ -68,4 +68,26 @@ class BinarySearchTree{
     }
   }
   this.portOrderTraverseNode(this.root,callback)
+ }
+ 
+ //获取最小值
+ getMin(node){
+  const minNode = node =>{
+    return node?(node.left?minNode(node.left):node):null;
+  }
+  return minNode(node || this.root)
+ }
+ 
+ //获取最大值
+ getMax(node){
+  const maxNode = node =>{
+    return node?(node.right?maxNode(node.right):node):null;
+  }
+  return getMax(node || this.root)
+ }
+ 
+ //搜索一个特定值
+ search(key){
+  const searchNode = (node,key){
+    
 }
