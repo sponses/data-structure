@@ -72,8 +72,8 @@ class Trie {
     //根据最后一个节点找出所有路径
     //过程中需要拼接字符串
     const findAll = (str, root) => {
-      let keys = Object.keys(root)
-      for (let i = 0, len = keys.length - 1; i < len; i++) {
+      let keys = Object.keys(root).filter(x => x != 'isEnd')
+      for (let i = 0, len = keys.length; i < len; i++) {
         //判断当前字母是否是最后一个单词或者isEnd属性是否为真
         //如果条件为真，说明到这个字母为止组成的是一个单词
         if (Object.keys(root[keys[i]]).length === 1 || root[keys[i]].isEnd) {
