@@ -74,10 +74,6 @@ class MaxHeap {
       //但是试了要减2才行
       this.sortOne(1, this.heap.length - i - 2)
 
-      //这个条件是测试不通过的时候硬加的
-      //搞不懂为啥
-      if (this.heap.length - i - 2 === 1 && this.heap[1] < this.heap[len - i])
-        return
       /**
        * 好懵逼啊
        * 流下了没技术的眼泪
@@ -86,7 +82,6 @@ class MaxHeap {
     }
   }
 }
-
 /**
  * 测试代码
  * const test = new MaxHeap()
