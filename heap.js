@@ -1,6 +1,6 @@
 /**
- * 最小堆
- * 2020/1/3
+ * 小顶堆
+ * 结构：[null,1,5,8,7,9,10]
  */
 class MinHeap {
   constructor() {
@@ -120,8 +120,8 @@ class MinHeap {
 // test.sort()
 
 /**
- * 最大堆
- * 2020/1/2
+ * 大顶堆
+ * 结构：[null,7,5,4,3,2,1]
  */
 class MaxHeap {
   constructor() {
