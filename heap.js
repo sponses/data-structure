@@ -1,5 +1,7 @@
 /**
  * 小顶堆
+ * 数组存储的完全二叉树，
+ * 每个节点比其子节点小
  * 结构：[null,1,5,8,7,9,10]
  */
 class MinHeap {
@@ -27,9 +29,7 @@ class MinHeap {
   //删除
   del(val) {
     let i = this.heap.indexOf(val)
-    if (i === -1) return
-
-    //要删除的节点与最后一个节点交换位置
+    if (i === -1) return //要删除的节点与最后一个节点交换位置
     ;[this.heap[i], this.heap[this.heap.length - 1]] = [
       this.heap[this.heap.length - 1],
       this.heap[i]
@@ -38,20 +38,17 @@ class MinHeap {
     this.heap.pop()
 
     //维持小顶堆
-    while (2 * i <= this.heap.length) {
+    while (2 * i < this.heap.length) {
       let cur = this.heap[i],
         right = this.heap[2 * i + 1],
         left = this.heap[2 * i]
 
-      if (cur <= left && (!right || cur <= right)) return
-      if (left < cur && (!right || left < right)) {
-        ;[this.heap[i], this.heap[2 * i]] = [this.heap[2 * i], this.heap[i]]
+      if (cur <= left && (right === undefined || cur <= right)) return
+      if (left <= cur && (right === undefined || left <= right)) {
+        ;[this.heap[i], this.heap[2 * i]] = [left, cur]
         i = i * 2
-      } else if (right && right < cur && right < left) {
-        ;[this.heap[i], this.heap[2 * i + 1]] = [
-          this.heap[2 * i + 1],
-          this.heap[i]
-        ]
+      } else if (right !== undefined && right <= cur && right <= left) {
+        ;[this.heap[i], this.heap[2 * i + 1]] = [right, cur]
         i = i * 2 + 1
       }
     }
@@ -67,30 +64,29 @@ class MinHeap {
 
       //维持倒数第i个数之前的所有数为小顶堆
       let f = 1
-      while (2 * f <= len - 1 - i) {
+      while (2 * f < len - i) {
         let cur = this.heap[f],
           left = this.heap[f * 2],
           right = this.heap[f * 2 + 1]
 
-        if (cur <= left && (!right || 2 * f + 1 >= len - 1 - i || cur <= right))
+        if (
+          cur <= left &&
+          (right === undefined || 2 * f + 1 >= len - 1 - i || cur <= right)
+        )
           break
-
         if (
           left < cur &&
-          (!right || 2 * f + 1 >= len - 1 - i || left < right)
+          (right === undefined || 2 * f + 1 >= len - 1 - i || left < right)
         ) {
-          ;[this.heap[f], this.heap[2 * f]] = [this.heap[2 * f], this.heap[f]]
+          ;[this.heap[f], this.heap[2 * f]] = [left, cur]
           f = f * 2
         } else if (
-          right &&
+          right !== undefined &&
           2 * f + 1 < len - 1 - i &&
           right < cur &&
           right < left
         ) {
-          ;[this.heap[f], this.heap[2 * f + 1]] = [
-            this.heap[2 * f + 1],
-            this.heap[f]
-          ]
+          ;[this.heap[f], this.heap[2 * f + 1]] = [right, cur]
           f = f * 2 + 1
         }
       }
@@ -121,6 +117,8 @@ class MinHeap {
 
 /**
  * 大顶堆
+ * 数组存储的完全二叉树，
+ * 每个节点比其子节点大
  * 结构：[null,7,5,4,3,2,1]
  */
 class MaxHeap {
@@ -157,20 +155,18 @@ class MaxHeap {
     //删除最后一个节点
     this.heap.pop()
 
-    while (2 * i <= this.heap.length) {
+    while (2 * i < this.heap.length) {
       let cur = this.heap[i],
         right = this.heap[2 * i + 1],
         left = this.heap[2 * i]
 
-      if (cur >= left && (!right || cur >= right)) return
-      if (left > cur && (!right || left > right)) {
-        ;[this.heap[i], this.heap[2 * i]] = [this.heap[2 * i], this.heap[i]]
+      if ((cur >= left && right === undefined) || cur >= right) break
+
+      if ((left >= cur && right === undefined) || left >= right) {
+        ;[this.heap[i], this.heap[i * 2]] = [left, cur]
         i = i * 2
-      } else if (right && right > cur && right > left) {
-        ;[this.heap[i], this.heap[2 * i + 1]] = [
-          this.heap[2 * i + 1],
-          this.heap[i]
-        ]
+      } else if (right !== undefined && right >= left && right >= cur) {
+        ;[this.heap[i], this.heap[i * 2 + 1]] = [right, cur]
         i = i * 2 + 1
       }
     }
@@ -191,25 +187,25 @@ class MaxHeap {
           left = this.heap[f * 2],
           right = this.heap[f * 2 + 1]
 
-        if (cur >= left && (!right || 2 * f + 1 >= len - 1 - i || cur >= right))
+        if (
+          cur >= left &&
+          (right === undefined || 2 * f + 1 >= len - 1 - i || cur >= right)
+        )
           break
 
         if (
           left > cur &&
-          (!right || 2 * f + 1 >= len - 1 - i || left > right)
+          (right === undefined || 2 * f + 1 >= len - 1 - i || left > right)
         ) {
-          ;[this.heap[f], this.heap[2 * f]] = [this.heap[2 * f], this.heap[f]]
+          ;[this.heap[f], this.heap[2 * f]] = [left, right]
           f = f * 2
         } else if (
-          right &&
+          right !== undefined &&
           2 * f + 1 < len - 1 - i &&
           right > cur &&
           right > left
         ) {
-          ;[this.heap[f], this.heap[2 * f + 1]] = [
-            this.heap[2 * f + 1],
-            this.heap[f]
-          ]
+          ;[this.heap[f], this.heap[2 * f + 1]] = [right, cur]
           f = f * 2 + 1
         }
       }
