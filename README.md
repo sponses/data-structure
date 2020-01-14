@@ -1,6 +1,6 @@
 ### 使用js实现数据结构
 
-1.字典树（[代码](https://github.com/sponses/data-structure/blob/master/trie.js)）
+1.字典树（[code](https://github.com/sponses/data-structure/blob/master/trie.js)）
 ```
   // 字典树结构
   {
@@ -30,7 +30,7 @@
   // 3.查找以输入字符串开始的所有单词
 ```
 
-2.堆（[代码](https://github.com/sponses/data-structure/blob/master/heap.js)）
+2.堆（[code](https://github.com/sponses/data-structure/blob/master/heap.js)）
 
 ```
   // 小顶堆
