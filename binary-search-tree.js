@@ -1,4 +1,8 @@
 class TreeNode {
+  /**
+   * Initialize TreeNode, Set the value of the TreeNode to be val.
+   * @param {number} val
+   */
   constructor(val) {
     this.val = val
     this.left = null
@@ -7,127 +11,261 @@ class TreeNode {
 }
 
 class BinarySearchTree {
+  /**
+   * Initialize  BinarySearchTree structure here.
+   */
   constructor() {
     this.root = null
   }
 
-  //插入节点
-  insertNode(val) {
-    const node = new TreeNode(val)
-    if (this.root === null) {
-      this.root = node
-      return
+  /**
+   * Find an item from the tree. Return true if the operation is successful.
+   * @param {number} val
+   * @return {boolean}
+   */
+  find(val) {
+    // 查找算法过程：
+    // 若该树是空树，返回，否则：
+    // 若node.val = root.val，则返回，否则：
+    // 若node.val < root.val，则比较该左子树，否则：
+    // 比较该右子树
+    /**
+     * @param {TreeNode} node
+     * @return {boolean}
+     */
+    function find(node) {
+      if (!node) return false
+      if (node.val === val) return true
+      if (node.val > val) return find(node.left)
+      return find(node.right)
+    }
+    return find(this.root)
+  }
+
+  /**
+   * Adds an item to the tree. Return true if the operation is successful.
+   * @param {number} val
+   * @return {boolean}
+   */
+  insert(val) {
+    // 插入算法过程：
+    // 若该树是空树，则将所指结点作为根节点插入，否则：
+    // 若node.val = root.val，则返回，否则：
+    // 若node.val < root.val，则把该节点插入到左子树中，否则：
+    // 把该节点插入到右子树中（新插入节点总是叶子节点）
+    const newNode = new TreeNode(val)
+    if (!this.root) {
+      this.root = newNode
+      return true
     }
 
-    //判断树中是否含有该值
-    if (this.find(val) !== null) throw Error('有啦有啦，重新传一个吧')
-
-    insert(this.root)
-    function insert(root) {
-      if (root.val > val) {
-        if (root.left) {
-          insert(root.left)
-        } else {
-          root.left = node
-          return
+    function insert(node) {
+      if (node.val === val) return false
+      if (node.val < val) {
+        if (!node.right) {
+          node.right = newNode
+          return true
         }
+        return insert(node.right)
       } else {
-        if (root.right) {
-          insert(root.right)
-        } else {
-          root.right = node
-          return
+        if (!node.left) {
+          node.left = newNode
+          return true
         }
+        return insert(node.left)
       }
     }
+    return insert(this.root)
   }
 
-  //共有多少个节点
-  getSize(root = this.root) {
-    if (!root) return 0
-    return 1 + this.getSize(root.left) + this.getSize(root.right)
-  }
+  /**
+   * Delete an item from the tree. Return true if the operation is successful.
+   * @param {number} val
+   * @return {boolean}
+   */
+  del(val) {
+    // 删除算法过程：
+    // root为空或者树中不存在该值，返回，否则
+    // 要删除的节点为叶子节点，直接删除，否则：
+    // 要删除的节点只有右节点，用右节点替换掉该节点，否则：
+    // 要删除的节点只有左节点，用左节点替换掉该节点，否则：
+    // 用该节点右节点替换掉该节点，并把该节点左节点连接在该节点右节点的左叶子节点上
 
-  //树的高度
-  getHeight(root = this.root) {
-    if (!root) return 0
-    return 1 + Math.max(this.getHeight(root.left), this.getHeight(root.right))
-  }
+    if (!this.root) return false
 
-  //先序遍历(根节点->左子树->右子树)
-  preOrderTraversal(root = this.root) {
-    if (!root) return
-    console.log(root.val)
-    this.preOrderTraversal(root.left)
-    this.preOrderTraversal(root.right)
-  }
+    if (this.root.val === val) {
+      if (!this.root.left && !this.root.right) {
+        this.root = null
+      } else if (!this.root.left && this.root.right) {
+        this.root = this.root.right
+      } else if (this.root.left && !this.root.right) {
+        this.root = this.root.left
+      } else {
+        let left = this.root.left
+        this.root = this.root.right
+        let root = this.root
 
-  //中序遍历(左子树->根节点->右子树)
-  midOrderTraversal(root = this.root) {
-    if (!root) return
-    this.midOrderTraversal(root.left)
-    console.log(root.val)
-    this.midOrderTraversal(root.right)
-  }
-
-  //后序遍历(左子树->右子树->根节点)
-  postOrderTraversal(root = this.root) {
-    if (!root) return
-    this.postOrderTraversal(root.left)
-    this.postOrderTraversal(root.right)
-    console.log(root.val)
-  }
-
-  //小小小
-  getMin(root = this.root) {
-    if (!root) return null
-    if (root && !root.left) return root
-    if (root && root.left) return this.getMin(root.left)
-  }
-
-  //大大大
-  getMax(root = this.root) {
-    if (!root) return null
-    if (root && !root.right) return root
-    if (root && root.right) return this.getMax(root.right)
-  }
-
-  //查找节点（参数：用户传入某个值）
-  find(val, root = this.root) {
-    if (!root) return null
-    if (root.val === val) return root
-    if (root.val > val) return this.find(val, root.left)
-    if (root.val < val) return this.find(val, root.right)
-  }
-
-  //删除节点（参数：用户传入某个值）
-  del(val, root = this.root) {
-    if (this.find(val) === null) throw Error('没找到你传的值哦~')
-    //删除节点好难哦~嘤嘤嘤
-    //我来分析看看
-
-    //判断当前节点是否是要删除的节点
-    if (root.val === val) {
-      //判断该节点有没有子节点
-      if (!root.left && !root.right) root = null
-      //有左子节点，无右子节点
-      if (root.left && !root.right) root = root.left
-      //有右子节点，无左子节点
-      if (!root.left && root.right) root = root.right
-      //左右子节点都有,把该节点替换为右节点，
-      //找出右节点中最小的节点，最小节点的左节点为该替换掉的节点的左节点
-      const left = root.left
-      root.val = root.right.val
-      root.right = root.right.right
-      root.left = root.left.left
-      this.getMin(root).left = left
-      return
+        while (root.left) {
+          root = root.left
+        }
+        root.left = left
+      }
+      return true
     }
 
-    if (root.val > val) {
-      this.del(val, root.left)
+    /**
+     * 第一个参数为父节点，第二个参数为当前节点，第三个参数表明当前节点为左节点还是右节点
+     * @param {TreeNode} root
+     * @param {TreeNode}  node
+     * @param {String}  direction
+     * @return {boolean}
+     */
+    function del(root, node, direction) {
+      if (!node) return false
+
+      if (node.val === val) {
+        if (!node.left && !node.right) {
+          root[direction] = null
+        } else if (!node.left && node.right) {
+          root[direction] = node.right
+        } else if (node.left && !node.right) {
+          root[direction] = node.left
+        } else {
+          let left = node.left
+          root[direction] = node.right
+
+          let temp = root.right
+          while (temp.left) {
+            temp = temp.left
+          }
+          temp.left = left
+        }
+        return true
+      }
+
+      if (node.val > val) {
+        return del(node, node.left, 'left')
+      } else {
+        return del(node, node.right, 'right')
+      }
+    }
+
+    if (this.root.val > val) {
+      return del(this.root, this.root.left, 'left')
     } else {
-      this.del(val, root.right)
+      return del(this.root, this.root.right, 'right')
     }
+  }
+
+  /**
+   * Get the size of the tree
+   * @return {number}
+   */
+  getSize() {
+    /**
+     * @param {TreeNode} node
+     * @return {number}
+     */
+    function getSize(node) {
+      if (!node) return 0
+      return 1 + getSize(node.left) + getSize(node.right)
+    }
+    return getSize(this.root)
+  }
+
+  /**
+   * Get the height of the tree
+   * @return {number}
+   */
+  getHeight() {
+    /**
+     * @param {TreeNode} node
+     * @return {number}
+     */
+    function getHeight(node) {
+      if (!node) return 0
+      return 1 + Math.max(getHeight(node.left), getHeight(node.right))
+    }
+    return getHeight(this.root)
+  }
+
+  /**
+   * Pre order traversal
+   */
+  preOrderTraversal() {
+    /**
+     * @param {TreeNode} node
+     */
+    function preOrderTraversal(node) {
+      if (!node) return
+      console.log(node.val)
+      preOrderTraversal(node.left)
+      preOrderTraversal(node.right)
+    }
+    preOrderTraversal(this.root)
+  }
+
+  /**
+   * Middle order traversal
+   */
+  midOrderTraversal() {
+    /**
+     * @param {TreeNode} node
+     */
+    function midOrderTraversal(node) {
+      if (!node) return
+      midOrderTraversal(node.left)
+      console.log(node.val)
+      midOrderTraversal(node.right)
+    }
+    midOrderTraversal(this.root)
+  }
+
+  /**
+   * Post order traversal
+   */
+  postOrderTraversal() {
+    /**
+     * @param {TreeNode} node
+     */
+    function postOrderTraversal(node) {
+      if (!node) return
+      postOrderTraversal(node.left)
+      postOrderTraversal(node.right)
+      console.log(node.val)
+    }
+    postOrderTraversal(this.root)
+  }
+
+  /**
+   * Get the smallest val on the tree
+   * @return {Number}
+   */
+  getMin() {
+    /**
+     * @param {TreeNode} node
+     */
+    function getMin(node) {
+      if (!node) return null
+      if (!node.left) return node.val
+      return this.getMin(node.left)
+    }
+    return getMin(this.root)
+  }
+
+  /**
+   * Get the biggest val on the tree
+   * @return {Number}
+   */
+  getMax() {
+    /**
+     * @param {TreeNode} node
+     */
+    function getMax(node) {
+      if (!node) return null
+      if (!node.right) return node.val
+      return getMax(node.right)
+    }
+    return getMax(this.root)
   }
 }

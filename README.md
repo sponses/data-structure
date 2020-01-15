@@ -1,46 +1,15 @@
 ### 使用js实现数据结构
 
-1.字典树（[code](https://github.com/sponses/data-structure/blob/master/trie.js)）
-```
-  // 字典树结构
-  {
-    'a':{
-      'p':{
-        'p':{
-          'l':{
-            'y':{
-              isEnd:true
-            },
-            'e':{
-              isEnd:true
-            }
-            isEnd:false
-          }
-          isEnd:false
-        }
-        isEnd:false
-      }
-      isEnd:false
-    }
-  }
+1.[字典树](https://github.com/sponses/data-structure/blob/master/trie.js)
+  
+2.[堆](https://github.com/sponses/data-structure/blob/master/heap.js)
 
-  // 实现功能：
-  // 1.插入单词
-  // 2.查找单词
-  // 3.查找以输入字符串开始的所有单词
-```
+3.[二叉搜索树](https://github.com/sponses/data-structure/blob/master/binary-search-tree.js)
 
-2.堆（[code](https://github.com/sponses/data-structure/blob/master/heap.js)）
+4.[并查集](https://github.com/sponses/data-structure/blob/master/union-find-set.js)
 
-```
-  // 小顶堆
-  [null,1,5,8,7,9,10]
+5.[双向链表](https://github.com/sponses/data-structure/blob/master/doubly-linked-list.js)
 
-  // 大顶堆
-  [null,7,5,4,3,2,1]
+6.[循环队列](https://github.com/sponses/data-structure/blob/master/circular-queue.js)
 
-  // 实现功能：
-  // 1.插入
-  // 2.删除
-  // 3.堆排序（升序、降序）
-```
+7.[循环双端队列](https://github.com/sponses/data-structure/blob/master/circular-deque.js)
