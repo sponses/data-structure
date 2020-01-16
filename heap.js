@@ -5,11 +5,18 @@
  * 结构：[null,1,5,8,7,9,10]
  */
 class MinHeap {
+  /**
+   * Initialize  MinHeap structure here.
+   */
   constructor() {
     this.heap = [null]
   }
 
-  //插入
+  /**
+   * insert an item to the heap. Return true if the operation is successful.
+   * @param {number} val
+   * @return {boolean}
+   */
   insert(val) {
     let i = this.heap.length,
       p = Math.floor(i / 2)
@@ -24,12 +31,17 @@ class MinHeap {
         break
       }
     }
+    return true
   }
 
-  //删除
+  /**
+   * delete an item from the heap. Return true if the operation is successful.
+   * @param {number} val
+   * @return {boolean}
+   */
   del(val) {
     let i = this.heap.indexOf(val)
-    if (i === -1) return //要删除的节点与最后一个节点交换位置
+    if (i === -1) return false
     ;[this.heap[i], this.heap[this.heap.length - 1]] = [
       this.heap[this.heap.length - 1],
       this.heap[i]
@@ -52,11 +64,15 @@ class MinHeap {
         i = i * 2 + 1
       }
     }
+    return true
   }
 
-  //排序（降序）
+  /**
+   * sort the heap
+   * @return {Number []}
+   */
   sort() {
-    if (this.heap.length < 3) return
+    if (this.heap.length < 3) return this.heap
 
     for (let i = 1, len = this.heap.length; i < len; i++) {
       //第一个和倒数第i个数交换位置
@@ -91,16 +107,8 @@ class MinHeap {
         }
       }
     }
+    return this.heap
   }
-  /**
-   * 总感觉有bug
-   *
-   * (≖͞_≖̥)
-   *
-   * 流下了没技术的眼泪
-   *
-   * ༼ ༎ຶ ෴ ༎ຶ༽
-   */
 }
 
 // 测试代码
@@ -122,11 +130,18 @@ class MinHeap {
  * 结构：[null,7,5,4,3,2,1]
  */
 class MaxHeap {
+  /**
+   * Initialize  MinHeap structure here.
+   */
   constructor() {
     this.heap = [null]
   }
 
-  //插入
+  /**
+   * insert an item to the heap. Return true if the operation is successful.
+   * @param {number} value
+   * @return {boolean}
+   */
   insert(value) {
     let i = this.heap.length,
       p = Math.floor(i / 2)
@@ -142,9 +157,14 @@ class MaxHeap {
         break
       }
     }
+    return true
   }
 
-  //删除
+  /**
+   * delete an item from the heap. Return true if the operation is successful.
+   * @param {number} value
+   * @return {boolean}
+   */
   del(value) {
     let i = this.heap.indexOf(value)
     if (i === -1) return //要删除的节点与最后一个节点交换位置
@@ -172,9 +192,12 @@ class MaxHeap {
     }
   }
 
-  //排序（升序）
+  /**
+   * sort the heap
+   * @return {Number []}
+   */
   sort() {
-    if (this.heap.length < 3) return
+    if (this.heap.length < 3) return this.heap
 
     for (let i = 1, len = this.heap.length; i < len; i++) {
       //第一个和倒数第i个数交换位置
@@ -210,6 +233,7 @@ class MaxHeap {
         }
       }
     }
+    return this.heap
   }
 }
 
